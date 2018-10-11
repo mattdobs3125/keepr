@@ -20,7 +20,7 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    keeps: {}
+    keeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -70,8 +70,15 @@ export default new Vuex.Store({
           console.log('Login Failed')
         })
     },
+    createKeep({commit,dispatch},obj){
+      api.post('Keep',obj)
+      .then(res=>{
+        commit("setKeeps",res.data)
+        dispatch("getKeeps")
+      })
+    },
     getKeeps({commit ,dispatch}){
-      api.get('keeps')
+      api.get('Keep')
       .then (res=>{
         commit('setKeeps',res.data)
       })

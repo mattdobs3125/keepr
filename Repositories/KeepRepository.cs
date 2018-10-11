@@ -4,12 +4,20 @@ using System.Linq;
 using keepr.Models;
 using Dapper;
 
-namespace burgershack.Repositories
+namespace keepr.Repositories
 {
 
   public class KeepsRepository
   {
-    private IDbConnection _db;
+        private const string _put= @"
+      UPDATE keeps SET (name, description, price) 
+      VALUES (@Name, @Description, @Price)
+      WHERE id = @Id;";
+        private const string _create= @"
+            INSERT INTO keeps (name, description, userId, img, isPrivate )
+            VALUES (@name, @description, @userId, @img, @isPrivate);
+            SELECT LAST_INSERT_ID();";
+        private IDbConnection _db;
 
     public KeepsRepository(IDbConnection db)
     {
@@ -18,13 +26,13 @@ namespace burgershack.Repositories
 
     //CRUD VIA SQL
 
-    //GET ALL BURGERS
+    //GET ALL keeps
     public IEnumerable<Keep> GetAll()
     {
       return _db.Query<Keep>("SELECT * FROM keeps;");
     }
 
-    //GET BURGER BY ID
+    //GET BY ID
     public Keep GetById(int id)
     {
       return _db.Query<Keep>("SELECT * FROM keep WHERE id = @id;", new { id }).FirstOrDefault();
@@ -33,37 +41,30 @@ namespace burgershack.Repositories
     //CREATE Keep
     public Keep Create(Keep keep)
     {
-      int id = _db.ExecuteScalar<int>(@"
-    (name, description, userId, isPrivate, img)
-            VALUES (@Name, @Description, @userId, @isPrivate, @img);
-            SELECT LAST_INSERT_ID();", keep
+      int id = _db.ExecuteScalar<int>(_create, keep
       );
       keep.Id = id;
       return keep;
     }
 
-    //UPDATE BURGER
+    //UPDATE Keep
     public Keep Update(Keep keep)
     {
-      _db.Execute(@"
-      UPDATE keeps SET (name, description, price) 
-      VALUES (@Name, @Description, @Price)
-      WHERE id = @Id
-      ", keep);
+      _db.Execute(_put, keep);
       return keep;
     }
-
-    //DELETE BURGER
-    public Keep Delete(Keep keep)
-    {
-      _db.Execute("DELETE FROM burgers WHERE id = @Id", keep);
-      return keep;
-    }
-
+// delete keep by id
     public int Delete(int id)
     {
       return _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });
     }
+    //DELETE keep
+    public Keep Delete(Keep keep)
+    {
+      _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
+      return keep;
+    }
+
 
 
   }

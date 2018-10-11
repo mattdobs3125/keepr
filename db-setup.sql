@@ -24,12 +24,21 @@
 --         ON DELETE CASCADE,  
 --     PRIMARY KEY (id)
 -- );
+-- INSERT INTO keeps (name, description, userId, ) 
+-- VALUES ("French fries", "Fried potatoes with sea salt!!","t12212");
+
 
 -- CREATE TABLE keeps (
 --     id int NOT NULL AUTO_INCREMENT,
 --     name VARCHAR(20) NOT NULL,
 --     description VARCHAR(255) NOT NULL,
 --     userId VARCHAR(255),
+--     img VARCHAR(300),
+--     views INT DEFAULT 0,
+--     shares INT DEFAULT 0,
+--     keeps INT DEFAULT 0,
+--         isPrivate TINYINT,
+
 --     INDEX userId (userId),
 --     FOREIGN KEY (userId)
 --         REFERENCES users(id)

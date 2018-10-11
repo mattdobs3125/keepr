@@ -5,12 +5,18 @@ namespace keepr.Models
 {
 public class Vault 
 {
+    public string UserId { get; set; }
 public int Id { get; set; }
-
-public string Username { get; set; }
-[MaxLength(255)]
 [Required]
+[MaxLength(20)]
+public string Name { get; set; }
+[Required]
+[MaxLength(255)]
 public string Description { get; set; }
+public Vault()
+{}
+
 }
+
 
 }
