@@ -20,6 +20,7 @@
 
 <script>
     export default {
+        
         name: "login",
         mounted() {
             //checks for valid session

@@ -45,6 +45,7 @@
 --         ON DELETE CASCADE,  
 --     PRIMARY KEY (id)
 -- );
+DROP TABlE keeps;
 
 -- CREATE TABLE vaultkeeps (
 --     id int NOT NULL AUTO_INCREMENT,
