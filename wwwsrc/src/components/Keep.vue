@@ -1,19 +1,26 @@
 <template>
-<div class="keeps">
+<div class="keeps row">
 
-<h1>Hello and welcome to Keepr the cool kids pinterest </h1>
     
-        <div v-for="keep in keeps" :key="keep"></div>
+       <div class="col-12">
+<h1>Hello and welcome to Keepr the cool kids pinterest </h1>
+           <div v-for="keep in keeps" :key="keep">
+    
         <h1>
-            {{keeps.name}}
+            {{keep}}
             </h1>
+          
         <h1>
-            {{keeps.img}}
+            {{keep}}
             </h1>
+          
         <h1>
-            {{keeps.description}}
+            {{keep}}
             </h1>
             
+            
+           </div> 
+           </div>
             
 
 
@@ -31,7 +38,8 @@ export default {
         keeps(){
            return this.$store.keeps;
         }
-    }
+    },
+     
 
 }
 </script>
